@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}  {% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;1,100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
+<script src="https://kit.fontawesome.com/097a3167cd.js" crossorigin="anonymous"></script>
+    <style>
+      body{
+        font-family: sans-serif;
+    }
+
+    </style>
+
+  </head>
+  <body>
+
+      <header class="site-header" >
+        <nav class="navbar navbar-expand-lg navbar-dark ">
+
+    <a class="navbar-brand " href="{{url_for('main.about')}}" style="color:black">About</a>
+
+    <button style="color:black" class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link " href="{{url_for('main.posts')}}" style="color:black;">Home <span class="sr-only">(current)</span></a>
+        </li>
+          </ul>
+
+      <div class="navbar-nav" >
+        {% if current_user.is_authenticated %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url_for('posts.new_post')}}" style="color:black">+New Post <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" >
+          <a class="nav-link" href="{{url_for('users.account')}}" style="color:black">Account <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url_for('users.logout')}}" style="color:black">Logout <span class="sr-only">(current)</span></a>
+        </li>
+        {% else %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url_for('users.register')}}" style="color:black">Register <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url_for('users.login')}}" style="color:black">Login <span class="sr-only">(current)</span></a>
+        </li>
+        {% endif %}
+    </div>
+
+    </nav>
+
+    </header>
+        <br>
+        <div class="container" style="width:450px">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+
+            {% for category, message in messages %}
+              <div class="alert alert-{{category}}"style="text-align:center">{{ message }}</li>
+                </div>
+            {% endfor %}
+
+          {% endif %}
+        {% endwith %}
+      </div>
+
+
+
+      {% block body %}{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  </body>
+</html>

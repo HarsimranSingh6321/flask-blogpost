@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{%  block title %}
+User's Posts
+
+{% endblock %}
+
+{% block body %}
+<style media="screen">
+  .top{
+  font-family : 'Montserrat' , sans-serif;
+  text-align: center;
+  margin-right: 200px;
+
+}
+</style>
+
+<h3 class="mb-3 top">Posts by {{user.username}} ({{posts.total}})</h3>
+<div class="container " style="width:500px;margin-right:600px; padding:15px">
+  {%for post in posts.items %}
+   <article class="content-section border rounded" style="padding:15px">
+     <div class="article-metadata">
+       <a class="mr-2" href="{{url_for('posts.post_with_id',post_id=post.id)}}">{{post.author.username}}</a>
+       <small class="text-muted">{{post.date_posted.strftime('%d %B, %Y')}}</small>
+     </div>
+      <hr>
+     <h3 class="article-title"  href="{{url_for('users.user_posts',username=post.author.username)}}">{{post.title}}</h3>
+     <p class="article-content" style="white-space:pre-wrap">{{post.content}}</p>
+   </article>
+   <br>
+   {% endfor %}
+
+{% for page_num in posts.iter_pages(left_edge=1 , right_edge=1 ,left_current=1 , right_current=2) %}
+  {% if page_num %}
+    {% if posts.page==page_num %}
+      <a class="btn btn-info mb-2" href="{{url_for('users.user_posts', username=user.username , page=page_num)}}">{{page_num}}</a>
+    {% else %}
+      <a class="btn btn-outline-info mb-2" href="{{url_for('users.user_posts', username=user.username , page=page_num)}}">{{page_num}}</a>
+  {% endif %}
+{% endif %}
+{% endfor %}
+
+</div>
+{% endblock %}

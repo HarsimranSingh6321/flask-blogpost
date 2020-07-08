@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{%  block title%}
+Account
+{% endblock %}
+
+{% block body %}
+<style media="screen">
+  @media (max-width: 480px){
+    div{
+      margin-top:20px;
+      margin-left:530px;
+    }
+  }
+</style>
+<div class="container border" style="padding:30px;   width:500px;">
+
+  <form  class="form-group" action="{{url_for('users.account')}}" method="post" >
+    {{form.hidden_tag()}}
+    <legend><u>Account Info</u></legend>
+    <div class="" style="padding:10px">
+      {{wtf.form_field(form.username)}}
+      {{wtf.form_field(form.email)}}
+      {{wtf.form_field(form.submit,class="btn btn-primary btn-lg")}}
+    </div>
+
+</div>
+
+
+{% endblock %}

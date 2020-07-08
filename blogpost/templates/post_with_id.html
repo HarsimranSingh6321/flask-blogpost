@@ -1,0 +1,54 @@
+{% extends 'base.html'  %}
+{% import "bootstrap/wtf.html" as wtf %}
+{%  block title%}
+User's post
+{% endblock %}
+
+{% block body %}
+<style media="screen">
+  @media (max-width: 480px){
+    div{
+      margin-top:20px;
+      margin-left:530px;
+    }
+  }
+</style>
+
+
+<div class="container" style="width:500px;margin-right:600px; padding:15px">
+   <article class="content-section border rounded" style="padding:15px">
+     <div class="article-metadata">
+       <a class="mr-2" href="#">{{posts.author.username}}</a>
+       <small class="text-muted">{{posts.date_posted.strftime('%d %B, %Y')}}</small>
+     </div>
+     <hr>
+     <h3 class="article-title" href="#">{{posts.title}}</h3>
+     <p class="article-content" style="white-space:pre-wrap">{{posts.content}}</p>
+      {% if current_user.username==posts.author.username%}
+       <a class="btn btn-secondary btn-sm mt-1 mb-1"  href="{{url_for('posts.edit',post_id=posts.id)}}" >Edit</a>
+      <button  class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+      {% endif %}
+   </article>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="deleteModalLabel">Delete Post</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <form action="{{url_for('posts.delete_post',post_id=posts.id)}}" method="post">
+         <input class="btn btn-danger" type="submit"  value="Delete">
+       </form>
+     </div>
+   </div>
+ </div>
+</div>
+
+{% endblock %}

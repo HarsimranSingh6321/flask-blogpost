@@ -1,0 +1,29 @@
+{% extends 'base.html'  %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}
+Request Password
+{% endblock %}
+
+{% block body %}
+<style media="screen">
+  body{
+     background-color:#3d7c47;
+  }
+  .leg{
+  color: white;
+  }
+</style>
+
+<div class="container" style="margin-top:30px; width:400px; height:500px; padding:40px">
+  <legend class="border-bottom mb-4 leg">Request Reset</legend>
+<form class="form-group" action="{{url_for('users.request_token')}}" method="post">
+  <div style="color:white">
+    {{form.hidden_tag()}}
+    <div class="leg">
+    {{wtf.form_field(form.email)}}
+      </div>
+      {{wtf.form_field(form.submit, class= "btn btn-primary btn-outline-light")}}
+    </form>
+    </div>
+
+{% endblock %}

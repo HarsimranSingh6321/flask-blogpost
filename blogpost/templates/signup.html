@@ -1,0 +1,41 @@
+{% extends 'base.html'  %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block body %}
+<style media="screen">
+  body{
+     background-color:#3d7c47;
+  }
+  .divv{
+    background-color: white;
+  }
+</style>
+
+<div class="container divv" style="margin-top:20px; width:400px; height:550px; padding:30px">
+  <legend class="border-bottom mb-4 ">Sign Up</legend>
+<form  action="{{url_for('users.register')}}" method="post" >
+  {{form.hidden_tag()}}
+
+  {{wtf.form_field(form.username)}}
+
+
+  {{wtf.form_field(form.email)}}
+
+
+  {{wtf.form_field(form.password)}}
+
+
+  {{wtf.form_field(form.confirm_password)}}
+
+  <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
+</form>
+<small >Already a user? <a href="{{url_for('users.login')}}">Login</a> </small>
+</div>
+
+
+
+{% endblock %}
