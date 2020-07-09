@@ -112,16 +112,3 @@ def reset_token(token):
 
     return render_template("reset_password.html" , form = form , token = token)
 
-@users.route("/results",methods=['GET','POST'])
-def search():
-    title=request.form.get('search')
-    search = "%{}%".format(title)
-    post=Post.query.filter(Post.title.like(search)).all()
-
-    if post:
-        return render_template('search.html',posts=post)
-    else:
-        flash('No results found','warning')
-
-    return redirect(url_for('main.posts'))
-
